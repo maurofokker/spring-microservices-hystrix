@@ -7,7 +7,7 @@
 
 * In case a target service present a failure, hystrix provide a circuit breaker feature
 * Failures in a microservice architecture can cascade and cause bigger problems
-* Main feature of `Hystrix` is being able to provide a graceful fail over within a micro service architecture
+* Main feature of `Hystrix` is being able to provide a graceful fail over within a micro service architecture. [Reference](https://github.com/Netflix/Hystrix/wiki)
 * If service fail then a default value can be provide to the source... this is provide by `@EnableCircuitBreaker` annotation
   * this allow to route our execution to a different method in the case of a failure using the annotation method `@HystrinxCommand`
     ```java
@@ -23,3 +23,6 @@
     ```
     * `fallbackMethod` allow to specify a particular method to invoke in case client method call fails
     * when `http://localhost:8888/service` fails then `failover()` method will be called
+    * fallback method should have same parameters than source method
+  * Properties in `@HystrixCommand` can be modified using `commandProperties` element. [Reference](https://github.com/Netflix/Hystrix/wiki/Configuration)
+  
