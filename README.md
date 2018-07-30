@@ -25,4 +25,20 @@
     * when `http://localhost:8888/service` fails then `failover()` method will be called
     * fallback method should have same parameters than source method
   * Properties in `@HystrixCommand` can be modified using `commandProperties` element. [Reference](https://github.com/Netflix/Hystrix/wiki/Configuration)
-  
+
+## Hystrix Dashboard
+
+* enable an interface to manage and monitor circuits breaking in micro services  in order to visualize state in the distributed system
+* starter pom dependency
+  ```xml
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+    </dependency>
+  ``` 
+* replace `@EnableCircuitBreaker` for `@EnableHystrix` annotation that is more generic and get a hystrix stream 
+* enable `@EnableHystrixDashboard` annotation
+* enable `management.endpoints.web.exposure.include=hystrix.stream` stream via [actuator](http://cloud.spring.io/spring-cloud-netflix/single/spring-cloud-netflix.html#_hystrix_metrics_stream)
+  * endpoint `http://localhost:8080/actuator/hystrix.stream` will show traffic generated in services as json
+* endpoint `http://localhost:8080/hystrix` will show the dashboard
+  * inside can subscribe with `http://localhost:8080/actuator/hystrix.stream` url and get a visual representation of circuit breaking 
